@@ -39,7 +39,6 @@ In order to work correctly, this plugin requires that your server meets the foll
 
 
 == Configuration ==
- 
 
 = Dynamic Cache Settings =
 
