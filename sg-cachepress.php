@@ -3,6 +3,7 @@
  * SG CachePress
  *
  * @package           SG_CachePress
+ * @author            SiteGround.Com Inc.
  * @author            George Penkov
  * @author            Gary Jones <gary@gamajo.com>
  * @link              http://www.siteground.com/
