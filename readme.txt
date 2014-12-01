@@ -7,7 +7,7 @@ Stable tag: 1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-The SG CachePress is a plugin that allows you to use dynamic cache powered by Varnish and Memcached to optimize the performance of your WordPress. It's designed to provide easy integration between WordPress and the SiteGround SuperCacher system.
+The SG CachePress is a plugin that allows you to use dynamic cache powered by Varnish and Memcached to optimize the performance of your WordPress.
 
 == Description ==
 
