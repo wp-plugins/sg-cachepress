@@ -55,6 +55,10 @@ This field allows you to exclude URLs from the cache. This means that if you nee
 
 == Changelog ==
 
+= Version 2.1.6 =
+* The purge button will now clear the Static cache even if Dynamic cache is not enabled
+* Better and more clear button labeling
+
 = Version 2.1.5 =
 * Better plugin activation and added to the wordpress.org repo
 

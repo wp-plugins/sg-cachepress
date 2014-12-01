@@ -30,7 +30,7 @@
 					<?php submit_button( __( 'Purge the Cache', 'sg-cachepress' ), 'primary', 'sg-cachepress-purge', false );?>
 				</form>
 			</div>
-			<small class="howto">This awesome button will purge all the data cached by the Dynamic cache.</small>
+			<small class="howto">This  button will purge all the data cached by the Static and Dynamic cache.</small>
 		</div>
 
 		<div class="clrfl"></div>	

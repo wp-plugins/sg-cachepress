@@ -11,7 +11,7 @@
  * @wordpress-plugin
  * Plugin Name:       SG CachePress
  * Description:       Through the settings of this plugin you can manage how your Wordpress interracts with Varnish and Memcached.
- * Version:           2.1.5
+ * Version:           2.1.6
  * Author:            SiteGround
  * Text Domain:       sg-cachepress
  * Domain Path:       /languages

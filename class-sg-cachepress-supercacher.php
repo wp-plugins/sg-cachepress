@@ -82,9 +82,6 @@ class SG_CachePress_Supercacher {
 		if ( $sg_cachepress_supercacher->environment->is_using_cli() )
 			return;
 
-		if ( ! $sg_cachepress_supercacher->environment->cache_is_enabled() )
-			return;
-
 		if ( self::$_flushed )
 			return;
 
