@@ -249,7 +249,14 @@ class SG_CachePress {
 		}
 
 		header( 'X-Cache-Enabled: True' );
-		$userIsLoggedIn = wp_validate_auth_cookie( $_COOKIE[LOGGED_IN_COOKIE], 'logged_in' );
+		
+		// Check if WP LOGGED_IN_COOKIE is set, validate it and define $userIsLoggedIn
+		if ( isset( $_COOKIE[LOGGED_IN_COOKIE] ) ) {
+			$userIsLoggedIn = wp_validate_auth_cookie( $_COOKIE[LOGGED_IN_COOKIE], 'logged_in' );
+		} else {
+		$userIsLoggedIn = false;
+		}
+		
 		// Logged In Users
 		if ( $userIsLoggedIn || ( ! empty( $_POST['wp-submit'] ) && 'Log In' === $_POST['wp-submit'] ) ) {
 			// Enable the cache bypass for logged users by setting a cache bypass cookie
