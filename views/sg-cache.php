@@ -1,7 +1,7 @@
 <div class="wrap">
 	<div class="greybox bintro">
 		<h2>SuperCacher for WordPress by <?php echo '<img height="25" src="' . plugins_url( '../css/sglogo.jpg' , __FILE__ ) . '" > ';?></h2>		
-		<p>The SuperCacher is a system that allows you to use dynamic cache powered by Varnish and Memcached to optimize the performance of your WordPress. In order to take advantage of the system you should have the SuperCacher enabled at your web host plus the required cache options turned on below. For more information on the different caching options refer to the <a href="http://www.siteground.com/tutorials/supercacher/" target="_blank">SuperCacher Tutorial</a>! </p>
+		<p>The SuperCacher is a system that allows you to use the SitGround dynamic cache and Memcached to optimize the performance of your WordPress. In order to take advantage of the system you should have the SuperCacher enabled at your web host plus the required cache options turned on below. For more information on the different caching options refer to the <a href="http://www.siteground.com/tutorials/supercacher/" target="_blank">SuperCacher Tutorial</a>! </p>
 	</div>
 	
 	<div class="clrfl"></div>
@@ -12,7 +12,7 @@
 			<div class="toggles">
 				<p class="butlabel">Dynamic Cache <a href="" id="sg-cachepress-dynamic-cache-toggle" class="<?php  if ( $this->options_handler->get_option('enable_cache') ==1 ) echo 'toggleon'; else echo 'toggleoff'; ?>"></a></p>
 			</div>
-			<small class="howto" id="sg-cachepress-dynamic-cache-text">Enable the Varnish-powered Dynamic caching system</small>
+			<small class="howto" id="sg-cachepress-dynamic-cache-text">Enable the Dynamic caching system</small>
 			<small class="howto" id="sg-cachepress-dynamic-cache-error" class="error"></small>
 		</div>
 

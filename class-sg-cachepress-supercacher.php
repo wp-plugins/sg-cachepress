@@ -87,8 +87,14 @@ class SG_CachePress_Supercacher {
 
 		$purge_request = $sg_cachepress_supercacher->environment->get_application_path() . '(.*)';
 
-		// Check if caching server is online
-		$hostname = trim( file_get_contents( '/etc/sgcache_ip', true ) );
+		// Check if caching server is varnish or nginx.
+		$sgcache_ip = '/etc/sgcache_ip';
+		$hostname = $_SERVER['SERVER_NAME'];
+		$purge_method = "PURGE";
+		if (file_exists($sgcache_ip)) {
+			$hostname = trim( file_get_contents( $sgcache_ip, true ) );
+			$purge_method = "BAN";
+		}
 
 		$cache_server_socket = fsockopen( $hostname, 80, $errno, $errstr, 2 );
 		if( ! $cache_server_socket ) {
@@ -96,7 +102,7 @@ class SG_CachePress_Supercacher {
 			return;
 		}
 
-		$request = "BAN {$purge_request} HTTP/1.0\r\n";
+		$request = "$purge_method {$purge_request} HTTP/1.0\r\n";
       	$request .= "Host: {$_SERVER['SERVER_NAME']}\r\n";
       	$request .= "Connection: Close\r\n\r\n";
 
