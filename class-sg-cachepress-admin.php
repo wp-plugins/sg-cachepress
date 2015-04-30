@@ -184,7 +184,7 @@ class SG_CachePress_Admin {
 			'manage_options',
 			SG_CachePress::PLUGIN_SLUG,   // Page slug
 			array( $this, 'display_plugin_admin_page' ),
-			plugins_url('sg-cachepress/css/sgicon.png')
+			plugins_url('sg-cachepress/css/logo-white.svg')
 		);
 	}
 
