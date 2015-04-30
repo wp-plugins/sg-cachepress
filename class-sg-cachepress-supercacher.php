@@ -1,7 +1,7 @@
 <?php
 /**
  * @package   SG_CachePress
- * @author    SiteGround 
+ * @author    SiteGround
  * @author    George Penkov
  * @author    Gary Jones <gamajo@gamajo.com>
  * @link      http://www.siteground.com/
@@ -77,7 +77,7 @@ class SG_CachePress_Supercacher {
      *
      * @return null
      */
-	public function purge_cache() {
+	public function purge_cache($dontDie = false) {
 		global $sg_cachepress_supercacher;
 		if ( $sg_cachepress_supercacher->environment->is_using_cli() )
 			return;
@@ -114,12 +114,41 @@ class SG_CachePress_Supercacher {
       	// Only die (or notify) if doing an Ajax request
 		if ( $sg_cachepress_supercacher->environment->action_data_is( 'sg-cachepress-purge' ) ) {
 			if ( preg_match( '/200/', $response ) )
+			{
+				if ($dontDie)
+					return true;
+
 				wp_die( 1 );
+			}
 			else
+			{
+				if ($dontDie)
+					return false;
+
 				wp_die( 0 );
+			}
 		}
 	}
 
+	/**
+	 * Purges the cache and redirects to referrer (admin bar button)
+	 *
+	 * @since 2.2.1
+	 */
+	public function purge_cache_admin_bar()
+	{
+		if ( isset( $_GET['_wpnonce'] ) )
+		{
+			if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'sg-cachepress-purge' ) )
+			{
+				wp_nonce_ays( '' );
+			}
+
+			self::purge_cache(true);
+			wp_redirect( wp_get_referer() );
+			die();
+		}
+	}
 	/**
 	 * Print notification in the admin section, or via AJAX
 	 *
@@ -165,7 +194,7 @@ class SG_CachePress_Supercacher {
 		add_action( 'switch_theme', array( $this,'hook_switch_theme' ) );
 		add_action( 'customize_save', array( $this,'hook_switch_theme' ) );
 		add_action( 'automatic_updates_complete', array( $this,'hook_atomatic_update' ) );
-		add_action( 'future_to_publish', array( $this,'scheduled_goes_live' ) );		
+		add_action( 'future_to_publish', array( $this,'scheduled_goes_live' ) );
 
 		// @todo Move the rest of this to a new method - and document what events it is capturing!
 
@@ -373,7 +402,7 @@ class SG_CachePress_Supercacher {
 	public function hook_switch_theme() {
 		$this->purge_cache();
 	}
-	
+
 	/**
 	 * Purge cache when the Automatic Updates are completd.
 	 *
@@ -382,7 +411,7 @@ class SG_CachePress_Supercacher {
 	public function hook_atomatic_update() {
 		$this->purge_cache();
 	}
-	
+
 	/**
 	 * Purge cache when Scheduled post becomes Published
 	 *

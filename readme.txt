@@ -55,6 +55,10 @@ This field allows you to exclude URLs from the cache. This means that if you nee
 
 == Changelog ==
 
+= Version 2.2.1 =
+* Added Purge SG Cache button
+* Redesigned mobile-friendly interface
+
 = Version 2.2.0 =
 * Added NGINX support
 

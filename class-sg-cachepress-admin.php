@@ -3,7 +3,7 @@
  * SG CachePress
  *
  * @package   SG_CachePress
- * @author    SiteGround 
+ * @author    SiteGround
  * @author    George Penkov
  * @author    Gary Jones <gamajo@gamajo.com>
  * @link      http://www.siteground.com/
@@ -50,7 +50,10 @@ class SG_CachePress_Admin {
 	 */
 	public function run() {
 		// Add the admin page and menu item.
-		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ) );
+		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ));
+
+		// Add the admin bar purge button
+		add_action( 'admin_bar_menu', array( $this, 'add_admin_bar_purge' ), PHP_INT_MAX );
 
 		// Load admin assets.
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_styles' ) );
@@ -60,7 +63,27 @@ class SG_CachePress_Admin {
 		add_action( 'wp_ajax_sg-cachepress-purge', array( 'SG_CachePress_Supercacher', 'purge_cache' ) );
 		add_action( 'wp_ajax_sg-cachepress-blacklist-update', array( $this, 'update_blacklist' ) );
 		add_action( 'wp_ajax_sg-cachepress-parameter-update', array( $this, 'update_parameter' ) );
+
+		// Add the admin bar purge button handler
+		add_action( 'admin_post_sg-cachepress-purge',  array( 'SG_CachePress_Supercacher', 'purge_cache_admin_bar' ) );
 	}
+
+	/**
+	 * Adds a purge buttion in the admin bar menu
+	 *
+	 * @param $wp_admin_bar WP_Admin_Bar
+	 * @since 2.2.1
+	 */
+	function add_admin_bar_purge( $wp_admin_bar ){
+		$args = array(
+				'id'    => 'SG_CachePress_Supercacher_Purge',
+				'title' => 'Purge SG Cache',
+				'href'  => wp_nonce_url( admin_url( 'admin-post.php?action=sg-cachepress-purge' ),'sg-cachepress-purge' ),
+				'meta'  => array( 'class' => 'sg-cachepress-admin-bar-purge' )
+		);
+		$wp_admin_bar->add_node( $args );
+	}
+
 	/**
 	 * Updates a param from ajax request
 	 *
