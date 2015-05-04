@@ -81,7 +81,9 @@ class SG_CachePress_Admin {
 				'href'  => wp_nonce_url( admin_url( 'admin-post.php?action=sg-cachepress-purge' ),'sg-cachepress-purge' ),
 				'meta'  => array( 'class' => 'sg-cachepress-admin-bar-purge' )
 		);
-		$wp_admin_bar->add_node( $args );
+		if ( current_user_can('manage_options') ) {
+			$wp_admin_bar->add_node( $args );
+		}
 	}
 
 	/**
