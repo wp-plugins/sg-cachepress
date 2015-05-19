@@ -89,7 +89,7 @@ class SG_CachePress_Supercacher {
 
 		// Check if caching server is varnish or nginx.
 		$sgcache_ip = '/etc/sgcache_ip';
-		$hostname = $_SERVER['SERVER_NAME'];
+		$hostname = $_SERVER['SERVER_ADDR'];
 		$purge_method = "PURGE";
 		if (file_exists($sgcache_ip)) {
 			$hostname = trim( file_get_contents( $sgcache_ip, true ) );

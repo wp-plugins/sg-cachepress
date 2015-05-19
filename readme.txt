@@ -55,6 +55,9 @@ This field allows you to exclude URLs from the cache. This means that if you nee
 
 == Changelog ==
 
+= Version 2.2.4 =
+* Minor system improvements
+
 = Version 2.2.3 =
 * Admin bar link visible only for admin users
 
