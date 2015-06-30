@@ -1,6 +1,6 @@
 === SG CachePress ===
 Contributors: Hristo Sg
-Tags: varnish, caching, speed, memcache, memcached, performance, siteground, nginx
+Tags: nginx, caching, speed, memcache, memcached, performance, siteground, nginx
 Requires at least: 3.0.1
 Tested up to: 4.2
 Stable tag: 1.0
@@ -54,6 +54,9 @@ This field allows you to exclude URLs from the cache. This means that if you nee
 * Enable Memcached - Store in the server's memory (using Memcached) frequently executed queries to the database for a faster access on a later use.
 
 == Changelog ==
+
+= Version 2.2.5 =
+* Minor system improvements
 
 = Version 2.2.4 =
 * Minor system improvements
