@@ -195,6 +195,7 @@ class SG_CachePress_Supercacher {
 		add_action( 'customize_save', array( $this,'hook_switch_theme' ) );
 		add_action( 'automatic_updates_complete', array( $this,'hook_atomatic_update' ) );
 		add_action( 'future_to_publish', array( $this,'scheduled_goes_live' ) );
+		add_action( '_core_updated_successfully', array( $this,'core_update_hook' ) );		
 
 		// @todo Move the rest of this to a new method - and document what events it is capturing!
 
@@ -418,6 +419,15 @@ class SG_CachePress_Supercacher {
 	 * @since 3.8.1
 	 */
 	public function scheduled_goes_live() {
+		$this->purge_cache();
+	}
+	
+	/**
+	 * Purge cache when after successful WordPress core update
+	 *
+	 * @since 3.8.1
+	 */
+	public function core_update_hook() {
 		$this->purge_cache();
 	}
 }

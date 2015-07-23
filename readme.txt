@@ -54,6 +54,8 @@ This field allows you to exclude URLs from the cache. This means that if you nee
 * Enable Memcached - Store in the server's memory (using Memcached) frequently executed queries to the database for a faster access on a later use.
 
 == Changelog ==
+= Version 2.2.5 =
+* Fixed bug with Memcached causing issues after WP Database update
 
 = Version 2.2.5 =
 * Minor system improvements
