@@ -179,6 +179,20 @@ class SG_CachePress {
 		$sg_cachepress          = new SG_CachePress( $sg_cachepress_options );
 		if ( ! $sg_cachepress_options->get_option() )
 			$sg_cachepress_options->init_options();
+		
+		self::check_if_plugin_caches();
+	}
+	
+	private static function check_if_plugin_caches()
+	{
+	    $sg_cachepress_options = new SG_CachePress_Options();
+	    $urlToCheck = get_site_url();
+
+	    if( !SG_CachePress_Supercacher::return_cache_result($url) )
+	    {
+	        if( !SG_CachePress_Supercacher::return_cache_result($url) )
+	            $sg_cachepress_options->enable_option('show_notice');
+	    }
 	}
 
 	/**

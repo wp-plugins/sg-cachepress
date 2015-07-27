@@ -12,6 +12,8 @@
 
 /** SG CachePress purge cache admin class */
 
+
+
 class SG_CachePress_Admin {
 
 	/**
@@ -51,6 +53,12 @@ class SG_CachePress_Admin {
 	public function run() {
 		// Add the admin page and menu item.
 		add_action( 'admin_menu', array( $this, 'add_plugin_admin_menu' ));
+		
+		// Admin Init
+		add_action( 'admin_init', array( $this, 'load_admin_global_js' ));
+		
+		// Add admin notification notices, so it can display when there is a problem with the plugin
+		add_action( 'admin_notices', array( $this, 'plugin_admin_notices'));
 
 		// Add the admin bar purge button
 		add_action( 'admin_bar_menu', array( $this, 'add_admin_bar_purge' ), PHP_INT_MAX );
@@ -63,9 +71,65 @@ class SG_CachePress_Admin {
 		add_action( 'wp_ajax_sg-cachepress-purge', array( 'SG_CachePress_Supercacher', 'purge_cache' ) );
 		add_action( 'wp_ajax_sg-cachepress-blacklist-update', array( $this, 'update_blacklist' ) );
 		add_action( 'wp_ajax_sg-cachepress-parameter-update', array( $this, 'update_parameter' ) );
+		add_action( 'wp_ajax_sg-cachepress-cache-test', array( $this, 'cache_test_callback' ) );
+		add_action( 'wp_ajax_sg-cachepress-cache-test-message-hide', array( $this, 'cache_test_message_hide' ) );
+		
 
 		// Add the admin bar purge button handler
 		add_action( 'admin_post_sg-cachepress-purge',  array( 'SG_CachePress_Supercacher', 'purge_cache_admin_bar' ) );
+	}
+	
+	function plugin_admin_notices() {
+	    $options = new SG_CachePress_Options();
+	    
+	    if( $options->get_option('show_notice') == 1 )
+	    {
+    	    $html = '<div id="ajax-notification" class="updated sg-cachepress-notification">';
+    	    $html .= '<p>';
+    	    $html .= __( '<strong>SG CachePress:</strong> Your site '.get_site_url().' is <strong>not cached</strong>! Make sure the Dynamic Cache is enabled in the SuperCache tool in cPanel. <a href="javascript:;" id="dismiss-sg-cahepress-notification">Click here to hide this notice</a>.', 'ajax-notification' );
+    	    $html .= '</p>';
+    	    $html .= '<span id="ajax-notification-nonce" class="hidden">' . wp_create_nonce( 'ajax-notification-nonce' ) . '</span>';
+    	    $html .= '</div>';
+    	    echo $html;
+	    }
+	}
+	
+	function load_admin_global_js()
+	{
+	    wp_enqueue_script( '', plugins_url( 'js/admin_global.js', __FILE__ ), array( 'jquery' ), SG_CachePress::VERSION, true );
+	}
+	
+	/**
+	 * This make test if the cache is on returning the value of the x-proxy-cache header from the desired page by $_POST['url'] parameter
+	 * 
+	 * @since 2.2.5
+	 */
+	function cache_test_callback($return_result = false)
+	{
+	    $urlToCheck = get_site_url()."/".$_POST['url'];
+	    
+	    if( SG_CachePress_Supercacher::return_cache_result($urlToCheck) )
+	        $result = 1;
+	    else
+	        $result = 0;
+	   
+        echo $result;
+        wp_die();
+	}
+	
+	/**
+	 * This function hides the notice from displaying when it is manually closed
+	 *
+	 * @since 2.2.5
+	 */
+	function cache_test_message_hide()
+	{
+	    $options = new SG_CachePress_Options();
+	    $options->disable_option('show_notice');
+	    
+	    echo 1;
+	    
+	    wp_die();
 	}
 
 	/**
@@ -168,7 +232,8 @@ class SG_CachePress_Admin {
 				'purging' => __( 'Purging, please wait...', 'sg-cachepress' ),
 				'updating' => __( 'Updating, please wait...', 'sg-cachepress' ),
 				'updated'  => __( 'Update the Exclude List' ),
-				'purged'  => __( 'Successfully Purged', 'sg-cachepress' )
+				'purged'  => __( 'Successfully Purged', 'sg-cachepress' ),
+			    'ajax_url' => admin_url( 'admin-ajax.php' )
 			);
 			wp_localize_script( SG_CachePress::PLUGIN_SLUG . '-admin', 'sgCachePressL10n', $strings );
 		}

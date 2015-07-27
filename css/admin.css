@@ -8,8 +8,10 @@ h3 { margin: 0 0 10px; }
 .clear:before, .clear:after { content: ""; display: table; }
 .clear:after { clear: both;}
 .clear { zoom: 1; }
-
 .error { color: red; text-align: center;}
+.notcached { color: red; font-weight:700 }
+.cached { color: green; font-weight:700 }
+input[type="name"] {box-shadow: none !important; height: 10px}
 
 .wp-core-ui .button-primary { background: #3D4A69; color: #fff; border: none; border-color: #3D4A69; box-shadow: none; height: 40px; line-height: 40px; text-align: center; }
 .wp-core-ui .button-primary:hover,
@@ -19,8 +21,8 @@ h3 { margin: 0 0 10px; }
 .wp-core-ui .button-primary:disabled { background: #49587c !important; border-color: !important; box-shadow: none !important; color: #fff !important; }
 
 /* LAYOUT */
-.wrap { max-width: 800px; margin: 20px 20px 20px 10px; }
-.wrap h2 { margin: 0 0 15px; padding: 0; line-height: 29px; }
+.sgwrap { max-width: 800px; margin: 20px 20px 20px 15px; }
+.sgwrap h2 { margin: 0 0 15px; padding: 0; line-height: 29px; }
 .box { margin: 20px 0 0; background: #fff; border: 1px solid #dbdbdb; padding: 20px; }
 .greybox { margin: 10px 0 0; background: #f9f9f9; border: 1px solid #dbdbdb; padding: 20px; }
 .greybox p { font-style: italic; color: #999;}
@@ -61,8 +63,8 @@ h3 { margin: 0 0 10px; }
 }
 
 @media screen and (max-width: 360px), screen and (max-device-width: 360px) {
-	.wrap { margin: 10px 10px 10px 0; }
-	.wrap h2 { font-size: 20px; }
+	.sgwrap { margin: 10px 10px 10px 0; }
+	.sgwrap h2 { font-size: 20px; }
 	.box { margin: 10px 0 0; padding: 10px; }
 	
 	.box:nth-of-type(2) .greybox:first-of-type > div { float: none; width: 100%; }
@@ -71,4 +73,10 @@ h3 { margin: 0 0 10px; }
 
 #adminmenu .wp-menu-image img {
 	padding-left: 9px !important;
+}
+input#testurl {
+	width: 50%;
+	height: 38px;
+	margin-right: 20px;
+	border: 1px solid #dbdbdb;
 }

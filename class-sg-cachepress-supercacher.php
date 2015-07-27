@@ -428,6 +428,23 @@ class SG_CachePress_Supercacher {
 	 * @since 3.8.1
 	 */
 	public function core_update_hook() {
-		$this->purge_cache();
+	    $this->purge_cache();
+	}
+	
+	
+	/**
+	 * Returns if the cache header is on
+	 * @param string $url
+	 * @return bool
+	 */
+	public static function return_cache_result( $url )
+	{
+	    $response = wp_remote_get($url);
+	    $xProxyCache = wp_remote_retrieve_header( $response, 'x-proxy-cache' );
+	    
+	    if($xProxyCache == 'HIT')
+	        return true;
+	    else
+	        return false;
 	}
 }
