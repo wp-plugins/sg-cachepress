@@ -8,8 +8,7 @@ h3 { margin: 0 0 10px; }
 .clear:before, .clear:after { content: ""; display: table; }
 .clear:after { clear: both;}
 .clear { zoom: 1; }
-.error { color: red; text-align: center;}
-.notcached { color: red; font-weight:700 }
+.error, .notcached { color: red; text-align: center;}
 .cached { color: green; font-weight:700 }
 input[type="name"] {box-shadow: none !important; height: 10px}
 
@@ -51,7 +50,6 @@ input[type="name"] {box-shadow: none !important; height: 10px}
 .box:nth-of-type(3) > .greybox:last-of-type p { text-align: left; }
 .box:nth-of-type(3) > .greybox:last-of-type form { margin: 20px 0 0; text-align: center; }
 .box:nth-of-type(3) > .greybox:last-of-type .button-primary { margin: 10px 0 0; padding: 0 20px; }
-
 .toggleon, .toggleoff { overflow: hidden; display: block; margin: 10px auto; width: 72px; height: 24px; background: url(onoff.jpg) 0 0 no-repeat; }
 .toggleoff { background: url(onoff.jpg) -72px 0 no-repeat; }
 
@@ -66,7 +64,6 @@ input[type="name"] {box-shadow: none !important; height: 10px}
 	.sgwrap { margin: 10px 10px 10px 0; }
 	.sgwrap h2 { font-size: 20px; }
 	.box { margin: 10px 0 0; padding: 10px; }
-	
 	.box:nth-of-type(2) .greybox:first-of-type > div { float: none; width: 100%; }
 	.box:nth-of-type(2) .greybox > div:nth-of-type(1) { margin: 0 0 20px; }
 }
@@ -74,6 +71,7 @@ input[type="name"] {box-shadow: none !important; height: 10px}
 #adminmenu .wp-menu-image img {
 	padding-left: 9px !important;
 }
+
 input#testurl {
 	width: 50%;
 	height: 38px;
