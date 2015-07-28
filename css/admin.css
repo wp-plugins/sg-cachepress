@@ -9,6 +9,7 @@ h3 { margin: 0 0 10px; }
 .clear:after { clear: both;}
 .clear { zoom: 1; }
 .error, .notcached { color: red; text-align: center;}
+.sgwrap p.error { border: none !important;}
 .cached { color: green; font-weight:700 }
 input[type="name"] {box-shadow: none !important; height: 10px}
 
