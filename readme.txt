@@ -55,6 +55,10 @@ This field allows you to exclude URLs from the cache. This means that if you nee
 
 == Changelog ==
 
+= Version 2.2.8 =
+* Bug fixing and improved notification behaviour
+* Fixed issues with MS installations
+
 = Version 2.2.7 =
 * Added testing box and notification if Dynamic Cache is not enabled in cPanel
 

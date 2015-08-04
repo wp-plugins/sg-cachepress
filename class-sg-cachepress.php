@@ -179,19 +179,35 @@ class SG_CachePress {
 		$sg_cachepress          = new SG_CachePress( $sg_cachepress_options );
 		if ( ! $sg_cachepress_options->get_option() )
 			$sg_cachepress_options->init_options();
-		
-		self::check_if_plugin_caches();
 	}
 	
-	private static function check_if_plugin_caches()
+	/**
+	 * Checks if the plugin caches correctly and shows notice when it does not
+	 * 
+	 * @since 2.2.7
+	 */
+	public static function check_if_plugin_caches()
 	{
 	    $sg_cachepress_options = new SG_CachePress_Options();
 	    $urlToCheck = get_site_url();
-
-	    if( !SG_CachePress_Supercacher::return_cache_result($url) )
+        
+	    if( !SG_CachePress_Supercacher::return_cache_result($urlToCheck) && $sg_cachepress_options->is_enabled('enable_cache') )
 	    {
-	        if( !SG_CachePress_Supercacher::return_cache_result($url) )
+	        if( !SG_CachePress_Supercacher::return_cache_result($urlToCheck) )
+	        {
 	            $sg_cachepress_options->enable_option('show_notice');
+	            return false;
+	        }
+	        else
+	        {
+	            $sg_cachepress_options->disable_option('show_notice');
+	            return true;
+	        }
+	    }
+	    else
+	    {
+	        $sg_cachepress_options->disable_option('show_notice');
+	        return true;
 	    }
 	}
 
@@ -202,6 +218,8 @@ class SG_CachePress {
 	 */
 	private static function single_deactivate() {
 		// TODO: Define deactivation functionality here?
+	    $sg_cachepress_options = new SG_CachePress_Options();
+	    $sg_cachepress_options->disable_option('show_notice');
 	}
 
 	/**

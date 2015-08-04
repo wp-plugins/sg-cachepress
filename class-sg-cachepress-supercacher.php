@@ -77,7 +77,7 @@ class SG_CachePress_Supercacher {
      *
      * @return null
      */
-	public function purge_cache($dontDie = false) {
+	public static function purge_cache($dontDie = false) {
 		global $sg_cachepress_supercacher;
 		if ( $sg_cachepress_supercacher->environment->is_using_cli() )
 			return;
@@ -135,7 +135,7 @@ class SG_CachePress_Supercacher {
 	 *
 	 * @since 2.2.1
 	 */
-	public function purge_cache_admin_bar()
+	public static function purge_cache_admin_bar()
 	{
 		if ( isset( $_GET['_wpnonce'] ) )
 		{
@@ -205,15 +205,15 @@ class SG_CachePress_Supercacher {
 					|| isset($_POST['skip-cropping']) || (isset($_POST['submit']) && $_POST['submit'] == 'Crop and Publish')
 					|| isset($_POST['remove-background']) || (isset($_POST['submit']) && $_POST['submit'] == 'Upload')
 					|| isset($_POST['save-background-options']))
-				$this->purge_cache();
+				self::purge_cache();
 
 			if ( isset( $_POST['action'] ) ) {
 				if ( in_array( $_POST['action'], array( 'widgets-order','save-widget','delete-selected' ) ) )
-					$this->purge_cache();
+					self::purge_cache();
 
 				if ( isset( $_POST['submit'] ) && 'update' === $_POST['action'] ) {
 					if ( in_array( $_POST['submit'], array( 'Update File', 'Save Changes' ) ) )
-						$this->purge_cache();
+						self::purge_cache();
 				}
 
 			}
@@ -225,23 +225,23 @@ class SG_CachePress_Supercacher {
 
 				if ( 'options-permalink.php' === $ref ) {
 					if ( 'update' === $_POST['action'] && 'Save Changes' === $_POST['submit'] && 'permalinks' === $_POST['option_page'] )
-						$this->purge_cache();
+						self::purge_cache();
 				}
 			}
 
 			if( isset( $_POST['save_menu'] ) ) {
 				// Add Menu
 				if( in_array( $_POST['save_menu'], array( 'Create Menu', 'Save Menu' ) ) )
-					$this->purge_cache();
+					self::purge_cache();
 
 			}
 		}
 
 		if ( ! empty( $_GET ) && isset( $_GET['action'] ) ) {
 			if ( isset( $_GET['menu'] ) && 'delete' === $_GET['action'] )
-				$this->purge_cache();
+				self::purge_cache();
 			if ( isset( $_GET['plugin'] ) && 'activate' === $_GET['action'] )
-				$this->purge_cache();
+				self::purge_cache();
 		}
 	}
 
@@ -254,7 +254,7 @@ class SG_CachePress_Supercacher {
 	 */
 	public function hook_add_post( $post_id ) {
 		if ( $this->environment->post_data_is( 'Publish', 'publish' ) || $this->environment->action_data_is( 'editpost' ) || $this->environment->action_data_is( 'inline-save' ) )
-			$this->purge_cache();
+			self::purge_cache();
 	}
 
 	/**
@@ -266,7 +266,7 @@ class SG_CachePress_Supercacher {
 	 */
 	public function hook_delete_post( $post_id ) {
 		if( isset( $_GET['action'] ) && ( 'delete' === $_GET['action'] || 'trash' === $_GET['action'] ) )
-			$this->purge_cache();
+			self::purge_cache();
 	}
 
 	/**
@@ -278,7 +278,7 @@ class SG_CachePress_Supercacher {
 	 */
 	public function hook_add_category( $cat_id ) {
 		if ( $this->environment->action_data_is( 'add-tag' ) )
-			$this->purge_cache();
+			self::purge_cache();
 	}
 
 	/**
@@ -290,7 +290,7 @@ class SG_CachePress_Supercacher {
 	 */
 	public function hook_edit_category( $cat_id ) {
 		if ( $this->environment->action_data_is( 'editedtag' ) )
-			$this->purge_cache();
+			self::purge_cache();
 	}
 
 	/**
@@ -302,7 +302,7 @@ class SG_CachePress_Supercacher {
 	 */
 	public function hook_delete_category( $cat_id ) {
 		if ( $this->environment->action_data_is( 'delete-tag' ) )
-			$this->purge_cache();
+			self::purge_cache();
 	}
 
 	/**
@@ -314,7 +314,7 @@ class SG_CachePress_Supercacher {
 	 */
 	public function hook_add_link( $link_id ) {
 		if ( $this->environment->action_data_is( 'add' ) && $this->environment->post_data_is( 'Add Link', 'save' ) )
-			$this->purge_cache();
+			self::purge_cache();
 	}
 
 	/**
@@ -326,7 +326,7 @@ class SG_CachePress_Supercacher {
 	 */
 	public function hook_edit_link( $link_id ) {
 		if ( $this->environment->action_data_is( 'editedtag' ) && $this->environment->post_data_is( 'Update', 'submit' ) )
-			$this->purge_cache();
+			self::purge_cache();
 	}
 
 	/**
@@ -338,7 +338,7 @@ class SG_CachePress_Supercacher {
 	 */
 	public function hook_delete_link( $link_id ) {
 		if ( $this->environment->action_data_is( 'delete-tag' ) && $this->environment->post_data_is( 'link_category', 'taxonomy' ) )
-			$this->purge_cache();
+			self::purge_cache();
 	}
 
 	/**
@@ -355,7 +355,7 @@ class SG_CachePress_Supercacher {
 
 			//  Purge post page
 			if ( $comment )
-				$this->purge_cache();
+				self::purge_cache();
 		}
 	}
 
@@ -373,7 +373,7 @@ class SG_CachePress_Supercacher {
 
 			//  Purge post page
 			if( $comment )
-				$this->purge_cache();
+				self::purge_cache();
 		}
 	}
 
@@ -391,7 +391,7 @@ class SG_CachePress_Supercacher {
 			|| ( isset( $_GET['action'] ) && isset( $_GET['c'] ) && 'trashcomment' === $_GET['action'] ) ) {
 			$comment = get_comment( $_POST['id'] );
 			if ( $comment )
-				$this->purge_cache();
+				self::purge_cache();
 		}
 	}
 
@@ -401,7 +401,7 @@ class SG_CachePress_Supercacher {
 	 * @since Unknown
 	 */
 	public function hook_switch_theme() {
-		$this->purge_cache();
+		self::purge_cache();
 	}
 
 	/**
@@ -410,7 +410,7 @@ class SG_CachePress_Supercacher {
 	 * @since 3.8.1
 	 */
 	public function hook_atomatic_update() {
-		$this->purge_cache();
+		self::purge_cache();
 	}
 
 	/**
@@ -419,7 +419,7 @@ class SG_CachePress_Supercacher {
 	 * @since 3.8.1
 	 */
 	public function scheduled_goes_live() {
-		$this->purge_cache();
+		self::purge_cache();
 	}
 	
 	/**
@@ -428,7 +428,7 @@ class SG_CachePress_Supercacher {
 	 * @since 3.8.1
 	 */
 	public function core_update_hook() {
-	    $this->purge_cache();
+	    self::purge_cache();
 	}
 	
 	
@@ -441,7 +441,7 @@ class SG_CachePress_Supercacher {
 	{
 	    $response = wp_remote_get($url);
 	    $xProxyCache = wp_remote_retrieve_header( $response, 'x-proxy-cache' );
-	    
+
 	    if($xProxyCache == 'HIT')
 	        return true;
 	    else
