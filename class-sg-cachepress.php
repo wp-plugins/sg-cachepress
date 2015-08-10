@@ -189,7 +189,7 @@ class SG_CachePress {
 	public static function check_if_plugin_caches()
 	{
 	    $sg_cachepress_options = new SG_CachePress_Options();
-	    $urlToCheck = get_site_url();
+	    $urlToCheck = get_home_url();
         
 	    if( !SG_CachePress_Supercacher::return_cache_result($urlToCheck) && $sg_cachepress_options->is_enabled('enable_cache') )
 	    {
