@@ -55,6 +55,9 @@ This field allows you to exclude URLs from the cache. This means that if you nee
 
 == Changelog ==
 
+= Version 2.2.9 =
+* Bug fixes
+
 = Version 2.2.8 =
 * Bug fixing and improved notification behaviour
 * Fixed issues with MS installations
